@@ -54,7 +54,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "../include/aiDefines.h"
 
-#include <stdint.h>
+/* Include our stdint.h replacement header for MSVC, take the global header for gcc/mingw
+ */
+ #if defined( _MSC_VER ) && ( _MSC_VER < 1600 )
+#	include "pstdint.h"
+#else
+#	include <stdint.h>
+#endif
 
 /* Undefine the min/max macros defined by some platform headers (namely Windows.h) to
  * avoid obvious conflicts with std::min() and std::max().
